@@ -1,0 +1,496 @@
+* {
+  
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primario: #fffbe6;
+    --fondo: #ffe4ec; 
+    --fondo-sobre: #ffe0b2; 
+    --solapa-sobre: #ffd54f; 
+    --cuerpo-sobre: #ffb74d; 
+    --sombra: rgba(0, 0, 0, 0.2);
+    --texto: #6d4c41; 
+    --corazon: #ff4081; 
+}
+
+body {
+    background: var(--fondo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+h1 {
+    font-family: "Marck Script", serif; 
+    text-align: center;
+    font-size: 60px;
+    margin-bottom: 50px;
+    color: #444;
+}
+
+.contenedor {
+    width: 400px;
+}
+
+.envoltura-sobre {
+    position: relative;
+    background-color: var(--fondo-sobre);
+    box-shadow: 0 0 40px var(--sombra);
+    border-radius: 15px;
+}
+
+.sobre {
+    position: relative;
+    width: 400px;
+    height: 300px;
+}
+
+.sobre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    border-top: 180px solid var(--solapa-sobre);
+    border-right: 200px solid transparent;
+    border-left: 200px solid transparent;
+    transform-origin: top;
+    transition: all 0.5s ease-in-out 0.7s;
+    border-radius: 10px;
+}
+
+.solapa-derecha {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    background-color: var(--cuerpo-sobre);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.solapa-izquierda {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+    background-color: var(--cuerpo-sobre);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.carta {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primario);
+    text-align: center;
+    box-shadow: 0 0 5px var(--sombra);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform .5s ease-in-out;
+}
+
+.contenido {
+    font-family: "Gill Sans", Calibri, sans-serif;
+    color: var(--texto);
+    text-align: left;
+    font-size: 12px;
+    border: 3px dotted var(--texto);
+    padding: 10px;
+    height: 100%;
+    line-height: 14px;
+    cursor: pointer;
+    overflow-Y: scroll;
+}
+
+.corazon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: var(--corazon);
+    transform: translate(-50%,0) rotate(45deg);
+    transition: transform 0.5s ease-in-out 1s;
+    z-index: 999;
+    cursor: pointer;
+}
+
+.corazon::before,
+.corazon::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: var(--corazon);
+    border-radius: 100%;
+
+}
+
+.corazon:before {
+    top: -15px;
+}
+
+.corazon:after {
+    right: 15px;
+}
+
+/*Agregar clases dinamicos*/
+.abierto .sobre::before {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
+
+.abierto .corazon {
+    transform: rotate(90deg);
+    transition-delay: 0.4s;
+}
+
+.carta.mostrar-carta {
+    transform: translateY(-290px);
+    transition: transform .5s ease-in-out;
+}
+
+.carta.cerrando-carta {
+    transform: translateY(-290px);
+    transition: transform .5s ease-in-out;
+}
+
+.carta.abierta {
+    z-index: 10000;
+}
+
+.envoltura-sobre.desactivar-sobre .sobre::before {
+    pointer-events: none;
+}
+
+/*Scroll personalizado*/
+
+/*
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--cuerpo-sobre);
+    border-radius: 4px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--corazon);
+}
+*/
+
+/*Vista celular*/
+
+@media screen and (max-width:400px) {
+    .contenedor {
+        width: 300px;
+    }
+
+    .sobre {
+        width: 300px;
+        height: 250px;
+    }
+
+    .sobre::before {
+        border-top:150px solid var(--solapa-sobre) ;
+        border-right: 150px solid transparent;
+        border-left: 150px solid transparent;
+    }
+
+}
+
+/* Globos */
+.globos {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 80px;
+    pointer-events: none;
+    z-index: 10001;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.globo {
+    width: 40px;
+    height: 55px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: radial-gradient(circle at 60% 40%, #fff 10%, transparent 70%), #ff4081;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    position: relative;
+    animation: flotar 2.5s infinite ease-in-out;
+}
+
+.globo:nth-child(2) { background: radial-gradient(circle at 60% 40%, #fff 10%, transparent 70%), #ffd54f; animation-delay: .5s;}
+.globo:nth-child(3) { background: radial-gradient(circle at 60% 40%, #fff 10%, transparent 70%), #ffb74d; animation-delay: 1s;}
+.globo:nth-child(4) { background: radial-gradient(circle at 60% 40%, #fff 10%, transparent 70%), #6d4c41; animation-delay: 1.5s;}
+
+.globo::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -18px;
+    width: 2px;
+    height: 18px;
+    background: #888;
+    transform: translateX(-50%);
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Confeti */
+.confeti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+.confeti span {
+    position: absolute;
+    width: 8px;
+    height: 16px;
+    border-radius: 3px;
+    opacity: 0.8;
+    animation: caer 2.5s infinite linear;
+}
+
+.confeti .c1 { background: #ff4081; left: 10%; animation-delay: 0s;}
+.confeti .c2 { background: #ffd54f; left: 25%; animation-delay: .5s;}
+.confeti .c3 { background: #ffb74d; left: 40%; animation-delay: 1s;}
+.confeti .c4 { background: #6d4c41; left: 55%; animation-delay: 1.5s;}
+.confeti .c5 { background: #fffbe6; left: 70%; animation-delay: 2s;}
+.confeti .c6 { background: #ffe0b2; left: 85%; animation-delay: 2.5s;}
+
+@keyframes caer {
+    0% { top: -20px; }
+    100% { top: 100vh; }
+}
+
+/* Payasito animado */
+.payasito {
+    position: relative;
+    width: 90px;
+    height: 120px;
+    margin: 20px auto 20px auto; /* centrado horizontal */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10002;
+    animation: payaso-entrada 1.5s ease;
+}
+
+@keyframes payaso-entrada {
+    0% { opacity: 0; transform: translateX(-50%) scale(0.5);}
+    80% { opacity: 1; transform: translateX(-50%) scale(1.1);}
+    100% { opacity: 1; transform: translateX(-50%) scale(1);}
+}
+
+/* Animación de rebote para el payasito */
+@keyframes payaso-rebote {
+    0%, 100% { transform: translateY(0); }
+    20% { transform: translateY(-10px); }
+    40% { transform: translateY(0); }
+    60% { transform: translateY(-6px); }
+    80% { transform: translateY(0); }
+}
+
+.payasito {
+    animation: payaso-entrada 1.5s ease, payaso-rebote 2s infinite 1.5s;
+}
+
+.cara {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background: #fffbe6;
+    border-radius: 50%;
+    border: 3px solid #ffd54f;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 0 auto;
+}
+
+.ojo {
+    position: absolute;
+    top: 28px;
+    width: 10px;
+    height: 10px;
+    background: #333;
+    border-radius: 50%;
+}
+.ojo-izq { left: 16px; }
+.ojo-der { right: 16px; }
+
+/* Animación de parpadeo para los ojos */
+.ojo {
+    animation: parpadeo 4s infinite;
+}
+@keyframes parpadeo {
+    0%, 97%, 100% { height: 10px; }
+    98% { height: 2px; }
+    99% { height: 10px; }
+}
+
+.nariz {
+    position: absolute;
+    top: 38px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    background: #ff4081;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    z-index: 2;
+}
+
+.boca {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 14px;
+    border-bottom: 3px solid #ffb74d;
+    border-radius: 0 0 20px 20px;
+}
+
+.mejilla {
+    position: absolute;
+    top: 48px;
+    width: 10px;
+    height: 10px;
+    background: #ffd54f;
+    border-radius: 50%;
+    opacity: 0.7;
+}
+.mejilla-izq { left: 8px; }
+.mejilla-der { right: 8px; }
+
+.sombrero {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 22px;
+    background: #ff4081;
+    border-radius: 15px 15px 0 0;
+    border-bottom: 3px solid #ffd54f;
+}
+.pompon {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    background: #ffd54f;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.mano {
+    position: absolute;
+    left: 70px;
+    top: 50px;
+    width: 22px;
+    height: 22px;
+    background: #ffd54f;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    animation: saludo 1.2s infinite;
+    transform-origin: top left;
+}
+
+@keyframes saludo {
+    0%, 100% { transform: rotate(-10deg);}
+    50% { transform: rotate(30deg);}
+}
+
+/* Globo de diálogo del payasito */
+.payasito .burbuja {
+    position: absolute;
+    left: 100px;
+    top: 10px;
+    min-width: 90px;
+    padding: 8px 16px;
+    background: #fffbe6;
+    color: #ff4081;
+    font-family: "Marck Script", serif;
+    font-size: 1.2em;
+    border-radius: 20px;
+    border: 2px solid #ffd54f;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    z-index: 10003;
+    animation: aparecerBurbuja 2s, burbuja-latido 1.2s infinite 2s;
+}
+
+@keyframes aparecerBurbuja {
+    0% { opacity: 0; transform: scale(0.5);}
+    80% { opacity: 1; transform: scale(1.1);}
+    100% { opacity: 1; transform: scale(1);}
+}
+
+@keyframes burbuja-latido {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+.payasito .burbuja::after {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 20px;
+    width: 18px;
+    height: 18px;
+    background: #fffbe6;
+    border-radius: 50%;
+    border: 2px solid #ffd54f;
+    z-index: -1;
+}
+
+@media screen and (max-width: 600px) {
+    .payasito {
+        width: 60px;
+        height: 80px;
+      
+        animation: payaso-entrada 1.5s ease;
+    }
+}
+
+
+
+
+
+

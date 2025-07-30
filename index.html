@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Carta para mamá</title>
+</head>
+<body>
+    <audio id="musica-fondo" src="Vicente Fernández - Las Mañanitas (Letra).mp3" controls loop autoplay></audio>
+    <button id="btn-musica" style="margin: 10px 0; font-size: 1.1em;">
+        ▶️ Escuchar canción
+    </button>
+    <script>
+    window.addEventListener('DOMContentLoaded', function() {
+        var audio = document.getElementById('musica-fondo');
+        // Intenta reproducir en automático
+        audio.play().catch(function() {
+            // Si el navegador lo bloquea, muestra el botón
+            document.getElementById('btn-musica').style.display = 'inline-block';
+        });
+    });
+    document.getElementById('btn-musica').onclick = function() {
+        document.getElementById('musica-fondo').play();
+        this.style.display = 'none';
+    };
+    </script>
+    <div class="confeti">
+        <span class="c1"></span>
+        <span class="c2"></span>
+        <span class="c3"></span>
+        <span class="c4"></span>
+        <span class="c5"></span>
+        <span class="c6"></span>
+    </div>
+    <div class="globos">
+        <div class="globo"></div>
+        <div class="globo"></div>
+        <div class="globo"></div>
+        <div class="globo"></div>
+    </div>
+    <h1>¡Feliz Cumpleaños Mamá! 🎂❤️</h1>
+    <div class="payasito">
+        <div class="cara">
+            <div class="ojo ojo-izq"></div>
+            <div class="ojo ojo-der"></div>
+            <div class="nariz"></div>
+            <div class="boca"></div>
+            <div class="mejilla mejilla-izq"></div>
+            <div class="mejilla mejilla-der"></div>
+            <div class="sombrero">
+                <div class="pompon"></div>
+            </div>
+        </div>
+        <div class="mano"></div>
+        <div class="burbuja">Te amo mamá</div>
+    </div>
+    <div class="contenedor">
+        <div class="envoltura-sobre">
+            <div class="sobre">
+                <div class="carta">
+                    <div class="contenido">
+                        <strong>Querida Mamá</strong>
+                        <p>
+                            Hoy celebramos <strong>tu cumpleaños</strong>, el día en que el mundo recibió a la persona más especial. Gracias por tu <em>amor</em>, tu <em>alegría</em> y por cada momento compartido. Eres el corazón de nuestra familia y la razón de tantas sonrisas. <br>
+                            Que este nuevo año de vida esté lleno de bendiciones, sueños cumplidos y mucha felicidad. <br>
+                            <strong>Te amo</strong> más de lo que las palabras pueden expresar. <br>
+                            <strong>¡Feliz Cumpleaños Mamá!</strong> <br>
+                            Con todo mi <strong>cariño</strong> y <strong>amor</strong>, <br>
+                            Tu hijo programador. <br>
+                            <span style="font-size: 0.9em; color: grey;">PD: Si esta carta fuera un programa, su salida sería:</span> <br>
+                            <code>"Feliz cumpleaños mamá, gracias por tu vida y tu amor. Te amo mucho mamá 🎂❤️."</code>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="corazon"></div>
+            <div class="solapa-derecha"></div>
+            <div class="solapa-izquierda"></div>
+        </div>
+    </div>
+    <!-- <script src="script_v2.js"></script> -->
+     <script src="script_v2.js"></script>
+     <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const mensajes = [
+        "Te amo mamá",
+        "¡Feliz Cumpleaños!",
+        "Eres la mejor",
+        "Gracias por tu amor",
+        "¡Que tengas un día hermoso!"
+    ];
+    let i = 0;
+    const burbuja = document.querySelector('.payasito .burbuja');
+    setInterval(() => {
+        burbuja.textContent = mensajes[i];
+        i = (i + 1) % mensajes.length;
+    }, 2000);
+});
+</script>
+</body>
+</html>
